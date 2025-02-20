@@ -1,11 +1,14 @@
+import MyComponent from "./MyComponent";
+
 const FirstComponent = () => {
   return (
-      //Teste comentario
-      /*Teste comentario*/
+    //Teste comentario
+    /*Teste comentario*/
     <div>
       {/*Teste comentários*/}
       <h1>Meu primeiro componente</h1>
-      <p>Meu texto</p>
+      <p className="teste">Meu texto</p>
+      <MyComponent />
     </div>
   );
 };
