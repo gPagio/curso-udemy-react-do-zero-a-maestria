@@ -1,6 +1,8 @@
 import "./App.css";
 
 import Mendoza from "./assets/mendoza.jpg";
+import ManageData from "./components/ManageData";
+import ListRender from "./components/ListRender";
 
 function App() {
   return (
@@ -15,6 +17,9 @@ function App() {
       <div>
         <img src={Mendoza} alt="Mendoza" />
       </div>
+
+      <ManageData></ManageData>
+      <ListRender></ListRender>
     </div>
   );
 }
