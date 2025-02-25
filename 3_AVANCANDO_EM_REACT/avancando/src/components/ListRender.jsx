@@ -11,9 +11,18 @@ const ListRender = () => {
   ]);
 
   const deleteRandomUser = () => {
-    const randomIndex = Math.floor(Math.random() * users.length);
-    setUsers(users.filter((user) => user.id !== randomIndex));
-  }
+    try {
+      const randomIndex = users[Math.floor(Math.random() * users.length)].id;
+
+      setUsers((prevUsers) => {
+        console.log(prevUsers);
+        console.log(randomIndex);
+        return prevUsers.filter((user) => user.id !== randomIndex);
+      });
+    } catch (error) {
+      console.log("Erro ao deletar usuário: ", error.message);
+    }
+  };
 
   return (
     <div>
@@ -39,9 +48,7 @@ const ListRender = () => {
 
       <h2>Delete random user</h2>
       <div>
-        <button onClick={deleteRandomUser}>
-          Delete random user
-        </button>
+        <button onClick={deleteRandomUser}>Delete random user</button>
       </div>
     </div>
   );
