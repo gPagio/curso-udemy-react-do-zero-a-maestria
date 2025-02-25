@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import "./App.css";
 
 import Mendoza from "./assets/mendoza.jpg";
@@ -7,7 +9,8 @@ import CondicionalRender from "./components/CondicionalRender";
 import ShowUserName from "./components/ShowUserName";
 import CarDetails from "./components/CarDetails";
 import Fragments from "./components/Fragments";
-import { useState } from "react";
+import Container from "./components/Container";
+import ExecuteFunction from "./components/ExecuteFunction";
 
 function App() {
   const name = "Guilherme";
@@ -18,13 +21,11 @@ function App() {
     { id: 2, brand: "Fiat", km: 50000, color: "Branco", isNew: false },
     { id: 3, brand: "Ford", km: 0, color: "Vermelho", isNew: true },
     { id: 4, brand: "Chevrolet", km: 20000, color: "Preto", isNew: false },
-    { id: 5, brand: "Renault", km: 80000, color: "Prata", isNew: false },
-    { id: 6, brand: "Peugeot", km: 30000, color: "Cinza", isNew: false },
-    { id: 7, brand: "Hyundai", km: 15000, color: "Verde", isNew: true },
-    { id: 8, brand: "Toyota", km: 5000, color: "Amarelo", isNew: true },
-    { id: 9, brand: "Honda", km: 70000, color: "Rosa", isNew: false },
-    { id: 10, brand: "BMW", km: 40000, color: "Laranja", isNew: false },
   ];
+
+  function showMessage() {
+    console.log("Evento do componente pai!");
+  }
 
   return (
     <div>
@@ -76,6 +77,12 @@ function App() {
       ))}
       {/* fragments */}
       <Fragments propFragment="Teste"></Fragments>
+      {/* children */}
+      <Container myValue="Teste">
+        <p>Esse é o parágrafo do container</p>
+      </Container>
+      {/* Executar função */}
+      <ExecuteFunction myFunction={showMessage}></ExecuteFunction>
     </div>
   );
 }
