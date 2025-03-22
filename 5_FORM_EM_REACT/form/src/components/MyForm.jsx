@@ -16,14 +16,20 @@ const MyForm = ({ user }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Enviando dados...");
-    console.log(name, email, bio, role);
 
-    {/*7 - LIMPEZA DE FORM*/}
-    setName("");
-    setEmail("");
-    setBio("");
-    setRole("");
+    if (!name || !email || !bio || !role) {
+      alert("Preencha todos os campos!");
+      return;
+    } else {
+      console.log("Enviando dados...");
+      console.log(name, email, bio, role);
+
+      {/*7 - LIMPEZA DE FORM*/}
+      setName("");
+      setEmail("");
+      setBio("");
+      setRole("");
+    } 
   };
 
   /*  console.log(name);
