@@ -95,7 +95,7 @@ export const wordsList = {
     "Roxo",
     "Marrom",
   ],
-  países: [
+  paises: [
     "Brasil",
     "Argentina",
     "Chile",
@@ -119,7 +119,7 @@ export const wordsList = {
     "Brasília",
     "Manaus",
   ],
-  profissões: [
+  profissoes: [
     "Médico",
     "Advogado",
     "Professor",
@@ -167,7 +167,7 @@ export const wordsList = {
     "Quadro",
     "Livro",
   ],
-  música: [
+  musica: [
     "Cantor",
     "Banda",
     "Disco",
