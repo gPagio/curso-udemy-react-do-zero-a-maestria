@@ -30,10 +30,10 @@ const Game = ({
       </p>
       <h1>Adivinhe a palvara: </h1>
       <h3 className="tip">
-        Dica sobre a palavra <span> {pickedCategory}</span>
+        Dica sobre a palavra: <span> {pickedCategory.toUpperCase()}</span>
       </h3>
       <p>
-        Você ainda tem {guesses} {guesses == 1 ? "tentativa" : "tentativa"}.
+        Você ainda tem {guesses} {guesses == 1 ? "tentativa" : "tentativas"}.
       </p>
       <div className="wordContainer">
         {letters.map((letter, index) =>
@@ -62,9 +62,9 @@ const Game = ({
         </form>
       </div>
       <div className="wrongLettersContainer">
-        <p>Letras já utilizadas:</p>
+        <p>{wrongLetters.length == 0 ? "Nenhuma letra foi utilizada" : "Letras já utilizadas:"}</p>
         {wrongLetters.map((letter, index) => (
-          <span key={index}>{letter},</span>
+          <span key={index}>{letter}, </span>
         ))}
       </div>
     </div>

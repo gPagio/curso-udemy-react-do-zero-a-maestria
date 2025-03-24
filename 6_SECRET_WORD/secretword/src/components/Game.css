@@ -46,3 +46,7 @@
   text-align: center;
   margin-right: 1em;
 }
+
+.wrongLettersContainer span {
+  text-transform: uppercase;
+}

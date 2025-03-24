@@ -64,6 +64,21 @@ function App() {
 
   // PROCESSA INPUT DE LETRAS
   const verifyLetter = (letter) => {
+    const normalizedLetter = removerAcentos(letter.toLowerCase());
+
+    // SE A LETRA JÁ FOI USADA, SENDO CERTA OU ERRADA, NÃO FAZ NADA
+    if (guessedLetters.includes(normalizedLetter) || wrongLetters.includes(normalizedLetter)) {
+      return;
+    }
+
+    // ENVIA LETRAS OU REMOVE TENTATIVAS
+    if (letters.includes(normalizedLetter)) {
+      setGuessedLetters([...guessedLetters, normalizedLetter]);
+    } else {
+      setWrongLetters([...wrongLetters, normalizedLetter]);
+      setGuesses(guesses == 0 ? 0 : guesses - 1);
+    }
+
     console.log(letter);
   };
 
