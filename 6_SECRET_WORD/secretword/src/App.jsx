@@ -56,6 +56,7 @@ function App() {
     setPickedWord(word);
     setPickedCategory(category);
     setLetters(wordLetters);
+    clearLetterStates();
 
     setGameStage(stages[1].name);
   };
@@ -91,12 +92,21 @@ function App() {
     setGuesses(guessesQuantity);
   };
 
-  useEffect( () => {
+  useEffect(() => {
     if (guesses <= 0) {
       clearLetterStates();
       setGameStage(stages[2].name);
     }
   }, [guesses]);
+
+  useEffect(() => {
+    const uniqueletters = new Set(letters);
+
+    if (guessedLetters.length === uniqueletters.size && guessedLetters.length > 0) {
+      setScore(score + 100);
+      startGame();
+    }
+  }, [guessedLetters]);
 
   return (
     <div className="App">
@@ -115,7 +125,7 @@ function App() {
           score={score}
         ></Game>
       )}
-      {gameStage === "end" && <GameOver retry={retry}></GameOver>}
+      {gameStage === "end" && <GameOver retry={retry} score={score}></GameOver>}
     </div>
   );
 }
