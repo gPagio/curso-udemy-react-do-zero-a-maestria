@@ -19,6 +19,9 @@ const stages = [
 ];
 
 function App() {
+
+  const guessesQuantity = 3;
+
   const [gameStage, setGameStage] = useState(stages[0].name);
   const [words, setWords] = useState(wordsList);
 
@@ -28,7 +31,7 @@ function App() {
 
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
-  const [guesses, setGuesses] = useState(3);
+  const [guesses, setGuesses] = useState(guessesQuantity);
   const [score, setScore] = useState(0);
 
   const pickWordAndPickCategory = () => {
@@ -48,7 +51,7 @@ function App() {
   const startGame = () => {
     const { word, category } = pickWordAndPickCategory();
 
-    const wordLetters = word.split("").map((letra) => removerAcentos(letra.toLowerCase()));
+    const wordLetters = word.split("").map((letra) => letra.toLowerCase());
 
     setPickedWord(word);
     setPickedCategory(category);
@@ -59,12 +62,14 @@ function App() {
 
   // REINICIA O JOGO
   const retry = () => {
+    setScore(0);
+    setGuesses(guessesQuantity);
     setGameStage(stages[0].name);
   };
 
   // PROCESSA INPUT DE LETRAS
   const verifyLetter = (letter) => {
-    const normalizedLetter = removerAcentos(letter.toLowerCase());
+    const normalizedLetter = letter.toLowerCase();
 
     // SE A LETRA JÁ FOI USADA, SENDO CERTA OU ERRADA, NÃO FAZ NADA
     if (guessedLetters.includes(normalizedLetter) || wrongLetters.includes(normalizedLetter)) {
@@ -78,13 +83,20 @@ function App() {
       setWrongLetters([...wrongLetters, normalizedLetter]);
       setGuesses(guesses == 0 ? 0 : guesses - 1);
     }
-
-    console.log(letter);
   };
 
-  function removerAcentos(texto) {
-    return texto.normalize("NFD").replace(/\p{Diacritic}/gu, "");
-  }
+  const clearLetterStates = () => {
+    setGuessedLetters([]);
+    setWrongLetters([]);
+    setGuesses(guessesQuantity);
+  };
+
+  useEffect( () => {
+    if (guesses <= 0) {
+      clearLetterStates();
+      setGameStage(stages[2].name);
+    }
+  }, [guesses]);
 
   return (
     <div className="App">

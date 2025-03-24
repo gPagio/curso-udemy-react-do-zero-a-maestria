@@ -62,7 +62,7 @@ const Game = ({
         </form>
       </div>
       <div className="wrongLettersContainer">
-        <p>{wrongLetters.length == 0 ? "Nenhuma letra foi utilizada" : "Letras já utilizadas:"}</p>
+        <p>{wrongLetters.length == 0 ? "Nenhuma letra incorreta utilizada" : "Letras já utilizadas:"}</p>
         {wrongLetters.map((letter, index) => (
           <span key={index}>{letter}, </span>
         ))}
