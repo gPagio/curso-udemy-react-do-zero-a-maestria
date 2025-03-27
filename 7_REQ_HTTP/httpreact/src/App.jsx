@@ -2,23 +2,28 @@ import "./App.css";
 
 import { useState, useEffect } from "react";
 
+// 4 - CUSTOM HOOKS
+import { useFetch } from "./hooks/useFetch";
+
 function App() {
   const urlBase = "http://localhost:3000/products";
 
-  const [products, setProducts] = useState([]);
+  const { data: items, httpConfig } = useFetch(urlBase);
+
+  //const [products, setProducts] = useState(items);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
 
   // 1 - RESGATANDO DADOS DA API
-  useEffect(() => {
+  /*  useEffect(() => {
     async function fetchData() {
       const res = await fetch(urlBase);
       const data = await res.json();
       setProducts(data);
     }
     fetchData();
-  }, []);
+  }, []);*/
 
   // 2 - ADICIONANDO NOVOS PRODUTOS
   const handleSubmit = async (e) => {
@@ -26,7 +31,7 @@ function App() {
 
     const product = { name, price };
 
-    const res = await fetch(urlBase, {
+    /*const res = await fetch(urlBase, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +40,10 @@ function App() {
     });
 
     // 3 -  CARREGAMENTO DINAMICO4
-    setProducts([...products, await res.json()]);
+    setProducts([...products, await res.json()]);*/
+
+    // 5 - REFAZENDO O POST
+    httpConfig(product, "POST");
 
     setName("");
     setPrice("");
@@ -45,22 +53,25 @@ function App() {
     <div className="App">
       <h1>Lista de Produtos</h1>
       <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.name} - R$: {product.price}
-          </li>
-        ))}
+        {items &&
+          items.map((product) => (
+            <li key={product.id}>
+              {product.name} - R$: {product.price}
+            </li>
+          ))}
       </ul>
       <div className="add-product">
         <form onSubmit={handleSubmit}>
-          <label>Nome: 
+          <label>
+            Nome:
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </label>
-          <label>Preço: 
+          <label>
+            Preço:
             <input
               type="number"
               value={price}
