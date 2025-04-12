@@ -8,7 +8,7 @@ import { useFetch } from "./hooks/useFetch";
 function App() {
   const urlBase = "http://localhost:3000/products";
 
-  const { data: items, httpConfig } = useFetch(urlBase);
+  const { data: items, httpConfig, loading, error } = useFetch(urlBase);
 
   //const [products, setProducts] = useState(items);
 
@@ -52,14 +52,19 @@ function App() {
   return (
     <div className="App">
       <h1>Lista de Produtos</h1>
-      <ul>
-        {items &&
-          items.map((product) => (
-            <li key={product.id}>
-              {product.name} - R$: {product.price}
-            </li>
-          ))}
-      </ul>
+      {/*6 - LOADING*/}
+      {loading && <p>Carregando dados ...</p>}
+      {error && <p>{error}</p>}
+      {!error && (
+        <ul>
+          {items &&
+            items.map((product) => (
+              <li key={product.id}>
+                {product.name} - R$: {product.price}
+              </li>
+            ))}
+        </ul>
+      )}
       <div className="add-product">
         <form onSubmit={handleSubmit}>
           <label>
@@ -78,7 +83,9 @@ function App() {
               onChange={(e) => setPrice(e.target.value)}
             />
           </label>
-          <input type="submit" value="Criar" />
+          {/* 7 - STATE DE LOADING NO POST */}
+          {loading && <input type="submit" disabled value="Aguarde ..." />}
+          {!loading && !error && <input type="submit" value="Criar" />}
         </form>
       </div>
     </div>
