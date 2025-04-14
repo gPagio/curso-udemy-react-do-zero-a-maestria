@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 
-import "./Home.css";
+const Search = () => {
+  const [searchParams] = useSearchParams();
 
-const Home = () => {
-  const url = "http://localhost:3000/products";
+  const url = "http://localhost:3000/products?" + searchParams;
   const { data: items, loading, error } = useFetch(url);
 
   return (
     <div>
-      <h1>Produtos</h1>
+      <h1>Resultados Disponíveis</h1>
       {loading && <p>Carregando...</p>}
       {error && <p>{error}</p>}
       <ul className="products">
@@ -20,13 +20,15 @@ const Home = () => {
             <li key={item.id}>
               <h2>{item.name}</h2>
               <p>R$ {item.price}</p>
-              {/* Rota dinâmica */}
               <Link to={`/products/${item.id}`}>Detalhes</Link>
             </li>
           ))}
+        {!error && !loading && items && items.length === 0 && (
+          <p>Não foram encontrados resultados para a sua busca.</p>
+        )}
       </ul>
     </div>
   );
 };
 
-export default Home;
+export default Search;
