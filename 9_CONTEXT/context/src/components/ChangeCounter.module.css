@@ -1,0 +1,29 @@
+.group_buttons_top {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons_left {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+
+.buttons_left button {
+  margin-bottom: 5px;
+}
+
+.buttons_right {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+}
+
+.buttons_right button {
+  margin-bottom: 5px;
+}
+
+.group_buttons_bottom {
+  display: flex;
+  justify-content: center;
+}
