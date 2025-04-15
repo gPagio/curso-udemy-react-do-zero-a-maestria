@@ -39,7 +39,7 @@ function App() {
       body: JSON.stringify(product),
     });
 
-    // 3 -  CARREGAMENTO DINAMICO4
+    // 3 -  CARREGAMENTO DINAMICO
     setProducts([...products, await res.json()]);*/
 
     // 5 - REFAZENDO O POST
