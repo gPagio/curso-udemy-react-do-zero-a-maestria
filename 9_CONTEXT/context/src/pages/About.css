@@ -1,0 +1,9 @@
+.groupButtonsChangeColor{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.groupButtonsChangeColor button{
+  margin-top: 5px;
+}
