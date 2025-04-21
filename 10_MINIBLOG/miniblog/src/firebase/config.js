@@ -15,3 +15,5 @@ const app = initializeApp(firebaseConfig);
 
 // Inicia Firestore, a base de dados do Firebase
 const db = getFirestore(app);
+
+export { db };

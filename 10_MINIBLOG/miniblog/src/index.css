@@ -99,8 +99,9 @@ textarea {
   background-color: #dc3556;
 }
 
-button[disabled]{
+button[disabled], button[disabled]:hover {
   background-color: #aaa;
+  cursor: progress;
 }
 
 .container .error {
