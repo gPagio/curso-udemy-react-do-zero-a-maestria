@@ -33,11 +33,13 @@ const Register = () => {
 
     console.log(user);
 
-    setDisplayName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-    setError("");
+    if (error === "") {
+      setDisplayName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      setError("");
+    }
   };
 
   useEffect(() => {
