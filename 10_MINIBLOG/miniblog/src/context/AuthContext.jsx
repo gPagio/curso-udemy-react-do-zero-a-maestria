@@ -6,7 +6,7 @@ export const AuthContextProvider = ({ children, value }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuthValue = () => {
+export const useAuthContextValue = () => {
   const context = useContext(AuthContext);
 
   if (!context) {
