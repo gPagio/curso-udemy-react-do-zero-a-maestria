@@ -28,7 +28,7 @@ export const useAuthentication = () => {
     }
   }
 
-  // Register - LogIn
+  // Register - Criar usuário
   const createUser = async (data) => {
     checkIfIsCancelled();
     setLoading(true);
@@ -46,6 +46,7 @@ export const useAuthentication = () => {
       setLoading(false);
       return user;
     } catch (error) {
+      console.log("Erro ao fazer criar usuário...");
       console.log(error.message);
       console.log(typeof error.message);
 
@@ -62,7 +63,33 @@ export const useAuthentication = () => {
     }
   };
 
-  // Logout - SingOut
+  // Login - Entrar
+  const login = async (data) => {
+    checkIfIsCancelled();
+    setLoading(true);
+    setError(null);
+
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      setLoading(false);
+    } catch (error) {
+      console.log("Erro ao fazer login...");
+      console.log(error.message);
+      console.log(typeof error.message);
+
+      let systemErrorMessage;
+      if (error.message.includes("invalid-credential")) {
+        systemErrorMessage = "Email ou senha estão incorretos.";
+      } else {
+        systemErrorMessage = "Ocorreu um erro, tente mais tarde.";
+      }
+
+      setError(systemErrorMessage);
+      setLoading(false);
+    }
+  };
+
+  // Logout - Sair
   const logout = () => {
     checkIfIsCancelled();
     signOut(auth);
@@ -72,5 +99,5 @@ export const useAuthentication = () => {
     return () => setCancelled(true);
   }, []);
 
-  return { auth, createUser, logout, error, loading };
+  return { auth, createUser, login, logout, error, loading };
 };
