@@ -1,5 +1,7 @@
+// Recursos do Firebase
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA84MTyj-Ygo_-pEvnCSG5EYIxR7-Gg9Z4",
