@@ -1,4 +1,4 @@
-import { db } from "../firebase/config";
+import { db, auth } from "../firebase/config";
 
 import {
   getAuth,
@@ -19,8 +19,6 @@ export const useAuthentication = () => {
   // Acontece quando ainda existem funções pendentes de execução
   // e o componente que as chamou já foi desmontado
   const [cancelled, setCancelled] = useState(false);
-
-  const auth = getAuth();
 
   function checkIfIsCancelled() {
     if (cancelled) {

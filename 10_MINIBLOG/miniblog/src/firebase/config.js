@@ -16,4 +16,7 @@ const app = initializeApp(firebaseConfig);
 // Inicia Firestore, a base de dados do Firebase
 const db = getFirestore(app);
 
-export { db };
+// Inicia o Firebase Authentication, o sistema de autenticação do Firebase
+const auth = getAuth(app);
+
+export { db, auth };
