@@ -23,7 +23,7 @@ const insertReducer = (state, action) => {
   }
 };
 
-export const useInsertDocuments = (docCollection) => {
+export const useInsertDocument = (docCollection) => {
   const [response, dispatch] = useReducer(insertReducer, initialState);
 
   // Prevenção contra estouro de memória
