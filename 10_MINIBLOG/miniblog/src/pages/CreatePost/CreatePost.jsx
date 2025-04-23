@@ -8,6 +8,8 @@ import { useAuthContextValue } from "../../context/AuthContext";
 import { useInsertDocument } from "../../hooks/useInsertDocument";
 
 const CreatePost = () => {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [body, setBody] = useState("");
@@ -15,7 +17,6 @@ const CreatePost = () => {
   const [formError, setFormError] = useState("");
 
   const { insertDocument, response } = useInsertDocument("posts");
-
   const { user } = useAuthContextValue();
 
   const handleSubmit = (e) => {
@@ -23,21 +24,33 @@ const CreatePost = () => {
     setFormError("");
 
     // validar url da imagem
+    try {
+      new URL(image);
+    } catch (error) {
+      setFormError("A imagem precisa ser uma URL.");
+      return;
+    }
 
     // criar o array de tags
+    const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase().replace(/\s+/g, "-"));
 
     // checar todos os valores
+    if (!title || !image || !body || !tags) {
+      setFormError("Por favor, preencha todos os campos.");
+      return;
+    }
 
     insertDocument({
       title,
       image,
       body,
-      tags,
+      tagsArray,
       uid: user.uid,
       createdBy: user.displayName,
     });
 
     // redirecionamento para a página inicial
+    navigate("/");
   };
 
   return (
@@ -95,6 +108,7 @@ const CreatePost = () => {
           </button>
         )}
         {response.error && <p className="error">{response.error}</p>}
+        {formError && <p className="error">{formError}</p>}
       </form>
     </div>
   );
