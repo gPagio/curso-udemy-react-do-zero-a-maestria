@@ -5,8 +5,8 @@ import styles from "./EditPost.module.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthContextValue } from "../../context/AuthContext";
-import { useInsertDocument } from "../../hooks/useInsertDocument";
 import { useFetchDocument } from "../../hooks/useFetchDocument";
+import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
 const EditPost = () => {
   const { id } = useParams();
@@ -29,7 +29,7 @@ const EditPost = () => {
     }
   }, [post]);
 
-  const { insertDocument, response } = useInsertDocument("posts");
+  const { updateDocument, response } = useUpdateDocument("posts");
   const { user } = useAuthContextValue();
 
   const handleSubmit = (e) => {
@@ -55,24 +55,26 @@ const EditPost = () => {
       return;
     }
 
-    insertDocument({
+    const data = {
       title,
       image,
       body,
       tagsArray,
       uid: user.uid,
       createdBy: user.displayName,
-    });
+    };
 
-    // redirecionamento para a página inicial
-    navigate("/");
+    updateDocument(id, data);
+
+    // redirecionamento para a dashboard
+    navigate("/dashboard");
   };
 
   return (
     <div className={styles.edit_post}>
       {post && (
         <>
-          <h2>Editando Post: {title}</h2>
+          <h2>Editando Post: {post.title}</h2>
           <p>Altere os dados do post como desejar!</p>
           <form onSubmit={handleSubmit}>
             <label>
