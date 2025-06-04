@@ -7,14 +7,21 @@ import { Link } from "react-router-dom";
 // Hooks
 import { useAuthContextValue } from "../../context/AuthContext";
 import { useFetchDocuments } from "../../hooks/useFetchDocuments";
+import { useDeleteDocument } from "../../hooks/useDeleteDocument";
 
 const Dashboard = () => {
   const { user } = useAuthContextValue();
   const uid = user.uid;
 
   const { documents: posts, loading } = useFetchDocuments("posts", null, uid);
+  const { deleteDocument } = useDeleteDocument("posts");
 
-  const deleteDocument = (id) => {};
+  const handleDelete = (id) => {
+    const confirm = window.confirm("Tem certeza que deseja excluir este post?");
+    if (confirm) {
+      deleteDocument(id);
+    }
+  };
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -52,7 +59,7 @@ const Dashboard = () => {
                     Editar
                   </Link>
                   <button
-                    onClick={() => deleteDocument(post.id)}
+                    onClick={() => handleDelete(post.id)}
                     className="btn btn-outline btn-danger"
                   >
                     Excluir
