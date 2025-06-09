@@ -3,7 +3,7 @@ import { use, useEffect , useState} from "react";
 const HookUseEffect = () => {
   // 1 - useEffect sem dependências
   useEffect(() => {
-    console.log("Execução a cada renderização do componente");
+    //console.log("Execução a cada renderização do componente");
   });
 
   const [count, setCount] = useState(0);
@@ -14,12 +14,12 @@ const HookUseEffect = () => {
 
   // 2 - useEffect com array de dependências vazio
   useEffect(() => {
-    console.log("Execução apenas na montagem do componente");
+    //console.log("Execução apenas na montagem do componente");
   }, []);
 
   // 3 - useEffect com dependências
   useEffect(() => {
-    if (count > 0) console.log("Execução quando o count for alterado");
+    //if (count > 0) console.log("Execução quando o count for alterado");
 
   }, [count]);
 

@@ -10,12 +10,12 @@ const HookUseMemo = () => {
 
   // Para evitar isso, podemos usar useMemo para memorizar o resultado.
   const premiumNumbers = useMemo(() => {
-    console.log("useMemo: Calculando números premium");
+    //console.log("useMemo: Calculando números premium");
     return ["0", "100", "200", "300", "400", "500"];
   }, []);
 
   useEffect(() => {
-    console.log("useEffect: Executando efeito colateral");
+    //console.log("useEffect: Executando efeito colateral");
   }, [premiumNumbers]);
 
   return (

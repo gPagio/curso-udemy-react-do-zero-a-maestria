@@ -6,7 +6,7 @@ const HookUseCallback = () => {
   const [count, setCount] = useState(0);
 
   const getItemsFromDatabase = useCallback(() => {
-    console.log("Buscando itens do banco de dados...");
+    //console.log("Buscando itens do banco de dados...");
     return ["Item 1", "Item 2", "Item 3"];
   }, []);
 
