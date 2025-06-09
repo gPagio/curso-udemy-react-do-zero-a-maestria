@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA84MTyj-Ygo_-pEvnCSG5EYIxR7-Gg9Z4",
+  apiKey: import.meta.env.VITE_GOOGLE_CLOUD_FIREBASE_API_KEY,
   authDomain: "curso-udemy-react-miniblog.firebaseapp.com",
   projectId: "curso-udemy-react-miniblog",
   storageBucket: "curso-udemy-react-miniblog.firebasestorage.app",
