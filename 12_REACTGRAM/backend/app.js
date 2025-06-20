@@ -1,13 +1,15 @@
-import express, { json, urlencoded } from "express";
-import path from "path";
-import cors from "cors";
+require("dotenv").config();
 
-const port = 5000;
+const express = require("express");
+const path = require("path");
+const cors = require("cors");
+
+const port = process.env.PORT;
 const app = express();
 
 // Configurar para aceitar JSON e Imagens
-app.use(json());
-app.use(urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
