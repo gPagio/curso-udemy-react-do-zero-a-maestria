@@ -11,6 +11,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Configurar CORS
+app.use(cors({credentials: true, origin: process.env.FRONTEND_URL}));
+
+// Configurar o diretório de imagens
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Configurar o banco de dados
+require("./config/db");
+
 // Rotas
 const router = require("./routes/Router");
 app.use(router);
