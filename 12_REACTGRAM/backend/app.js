@@ -11,6 +11,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Rotas
+const router = require("./routes/Router");
+app.use(router);
+
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });

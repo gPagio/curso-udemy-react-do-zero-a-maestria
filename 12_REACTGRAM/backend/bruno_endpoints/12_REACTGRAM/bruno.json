@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "12_REACTGRAM",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
