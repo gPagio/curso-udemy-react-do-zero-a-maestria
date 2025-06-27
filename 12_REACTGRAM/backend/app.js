@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Configurar CORS
-app.use(cors({credentials: true, origin: process.env.FRONTEND_URL}));
+app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
 
 // Configurar o diretório de imagens
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
