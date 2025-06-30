@@ -1,0 +1,18 @@
+meta {
+  name: Login Usuário
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{urlBase}}/api/users/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"gui@gui.com",
+    "password":"12345"
+  }
+}
