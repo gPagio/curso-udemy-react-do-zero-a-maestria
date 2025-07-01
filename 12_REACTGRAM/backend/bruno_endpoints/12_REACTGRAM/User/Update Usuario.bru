@@ -1,0 +1,17 @@
+meta {
+  name: Update Usuario
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{urlBase}}/api/users/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name":"a"
+  }
+}
