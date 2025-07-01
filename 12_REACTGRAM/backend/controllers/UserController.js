@@ -59,7 +59,7 @@ const login = async (req, res) => {
 
   res.status(201).json({
     _id: user._id,
-    profileImage: user.profileImage || null,
+    profileImage: user.profileImage,
     token: generateToken(user._id),
   });
 };
