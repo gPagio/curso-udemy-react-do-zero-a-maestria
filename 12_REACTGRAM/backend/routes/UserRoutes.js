@@ -1,3 +1,7 @@
+const express = require("express");
+const router = express.Router();
+
+// Controller
 const {
   register,
   login,
@@ -18,9 +22,7 @@ const {
 const authGuard = require("../middlewares/authGuard");
 const { imageUpload } = require("../middlewares/imageUpload");
 
-const express = require("express");
-const router = express.Router();
-
+// Routes
 router.post("/login", loginValidation(), validate, login);
 router.post("/register", userCreateValidation(), validate, authGuard, register);
 
