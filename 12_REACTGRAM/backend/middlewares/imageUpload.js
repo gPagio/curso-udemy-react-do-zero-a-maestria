@@ -37,10 +37,10 @@ const imageUpload = multer({
     if (!file.originalname.match(/\.(png|jpg)$/)) {
       // Se o arquivo não for uma imagem PNG ou JPG, retorna um erro
       return cb(new Error("Por favor, envie uma imagem PNG ou JPG!"));
+    } else {
+      // Se o arquivo for válido, chama a função de callback sem erro e permite o upload
+      cb(undefined, true);
     }
-
-    // Se o arquivo for válido, chama a função de callback sem erro e permite o upload
-    cb(undefined, true);
   },
 });
 
