@@ -74,8 +74,6 @@ const getCurrentUser = (req, res) => {
 const update = async (req, res) => {
   const { name, password, bio } = req.body;
 
-  const profileImage = req.file ? req.file.filename : null;
-
   const reqUser = req.user;
   const user = await User.findById(new mongoose.Types.ObjectId(reqUser._id)).select("-password");
 
@@ -94,8 +92,8 @@ const update = async (req, res) => {
     user.bio = bio;
   }
 
-  if (profileImage) {
-    user.profileImage = profileImage;
+  if (req.files) {
+    user.profileImage = req.files[0].originalname;
   }
 
   await user.save();

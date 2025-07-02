@@ -20,7 +20,7 @@ const imageStorage = multer.diskStorage({
     }
 
     // Define o caminho de destino
-    cb(null, `uploads/${folder}`);
+    cb(null, `uploads/${folder}/`);
   },
 
   // Define o nome do arquivo
@@ -44,4 +44,4 @@ const imageUpload = multer({
   },
 });
 
-module.exports = imageUpload;
+module.exports = { imageUpload };

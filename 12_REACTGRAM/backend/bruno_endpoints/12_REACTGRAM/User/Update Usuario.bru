@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{urlBase}}/api/users/
+  url: {{urlBase}}/users/
   body: multipartForm
   auth: inherit
 }
@@ -16,12 +16,12 @@ body:json {
   }
 }
 
-body:form-urlencoded {
-  : 
+body:multipart-form {
+  name: Guilherme
+  bio: Oi, eu sou o Guilherme
+  profileImage: @file(C:\Users\ti\Downloads\images.jpg)
 }
 
-body:multipart-form {
-  name: Guilheme
-  bio: Teste Bio
-  profileImage: @file(C:\Users\ti\Downloads\images.jpg)
+body:file {
+  file: @file()
 }
