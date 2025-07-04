@@ -7,7 +7,7 @@ const {
   login,
   getCurrentUser,
   update,
-  updateUserById,
+  getUserById,
 } = require("../controllers/UserController");
 
 // Middlewares
@@ -27,7 +27,7 @@ router.post("/login", loginValidation(), validate, login);
 router.post("/register", userCreateValidation(), validate, authGuard, register);
 
 router.get("/profile", authGuard, getCurrentUser);
-router.get("/:id", updateUserById);
+router.get("/:id", getUserById);
 
 // Colocamos imageUpload.single("profileImage") para que o multer processe o upload de uma única imagem com o campo "profileImage"
 router.put("/", authGuard, userUpdateValidation(), validate, imageUpload.single("profileImage"), update);

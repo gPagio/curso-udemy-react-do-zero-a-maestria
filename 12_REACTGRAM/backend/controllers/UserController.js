@@ -103,7 +103,7 @@ const update = async (req, res) => {
   res.status(200).json(user);
 };
 
-const updateUserById = async (req, res) => {
+const getUserById = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -119,5 +119,5 @@ module.exports = {
   login,
   getCurrentUser,
   update,
-  updateUserById,
+  getUserById,
 };
