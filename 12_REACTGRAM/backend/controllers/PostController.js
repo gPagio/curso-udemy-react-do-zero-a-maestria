@@ -183,6 +183,15 @@ const addCommentToPost = async (req, res) => {
   });
 };
 
+const searchPostsLikeTitleIgnoreCase = async (req, res) => {
+  const { q } = req.query;
+
+  // Expressão regular para buscar títulos que contenham a query, ignorando maiúsculas/minúsculas
+  const posts = await Post.find({ title: new RegExp(q, "i") }).exec();
+
+  return res.status(200).json(posts);
+};
+
 module.exports = {
   insertPost,
   deletePost,
@@ -192,4 +201,5 @@ module.exports = {
   updatePost,
   addLikeToPost,
   addCommentToPost,
+  searchPostsLikeTitleIgnoreCase,
 };

@@ -11,6 +11,7 @@ const {
   updatePost,
   addLikeToPost,
   addCommentToPost,
+  searchPostsLikeTitleIgnoreCase,
 } = require("../controllers/PostController");
 
 // Middlewares
@@ -38,10 +39,17 @@ router.delete("/:id", authGuard, deletePost);
 
 router.get("/", authGuard, getAllPosts);
 router.get("/user/:id", authGuard, getUserPosts);
+router.get("/search", authGuard, searchPostsLikeTitleIgnoreCase);
 router.get("/:id", authGuard, getPostById);
 
 router.put("/:id", authGuard, postUpdateValidation(), validate, updatePost);
 router.put("/like/:id", authGuard, addLikeToPost);
-router.put("/comment/:id", authGuard, commentValidation(), validate, addCommentToPost);
+router.put(
+  "/comment/:id",
+  authGuard,
+  commentValidation(),
+  validate,
+  addCommentToPost
+);
 
 module.exports = router;

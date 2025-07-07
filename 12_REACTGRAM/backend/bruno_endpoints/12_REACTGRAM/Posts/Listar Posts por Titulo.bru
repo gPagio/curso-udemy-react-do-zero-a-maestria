@@ -1,0 +1,15 @@
+meta {
+  name: Listar Posts por Titulo
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{urlBase}}/posts/search?q=1
+  body: none
+  auth: inherit
+}
+
+params:query {
+  q: 1
+}
