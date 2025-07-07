@@ -58,8 +58,22 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+const getUserPosts = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const posts = await Post.find({ userId }).sort("-createdAt").exec();
+    return res.status(200).json(posts);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ errors: ["Erro ao buscar posts do usuário!"] });
+  }
+};
+
 module.exports = {
   insertPost,
   deletePost,
   getAllPosts,
+  getUserPosts,
 };
