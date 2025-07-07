@@ -10,10 +10,10 @@ const insertPost = async (req, res) => {
 
   const user = await User.findById(reqUser._id);
   const newPost = new Post({
-    image,
-    title,
-    userId: user._id,
-    userName: user.name,
+    image: image.trim(),
+    title: title.trim(),
+    userId: user._id.trim(),
+    userName: user.name.trim(),
   });
 
   if (!newPost) {
@@ -113,7 +113,7 @@ const updatePost = async (req, res) => {
   }
 
   if (title) {
-    post.title = title;
+    post.title = title.trim();
   }
 
   await post.save();
@@ -142,13 +142,45 @@ const addLikeToPost = async (req, res) => {
 
   post.likes.push(reqUser._id);
   await post.save();
-  return res
-    .status(200)
-    .json({
-      postId: id,
-      userId: reqUser._id,
-      message: "Post curtido com sucesso!",
-    });
+  return res.status(200).json({
+    postId: id,
+    userId: reqUser._id,
+    message: "Post curtido com sucesso!",
+  });
+};
+
+const addCommentToPost = async (req, res) => {
+  const { id } = req.params;
+  const { comment } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(422).json({ errors: ["ID inválido!"] });
+  }
+
+  const post = await Post.findById(id);
+  if (!post) {
+    return res.status(404).json({ errors: ["Post não encontrado!"] });
+  }
+
+  const user = await User.findById(req.user._id);
+  if (!user) {
+    return res.status(404).json({ errors: ["Usuário não encontrado!"] });
+  }
+
+  const userComment = {
+    comment: comment.trim(),
+    userName: user.name,
+    userImage: user.profileImage,
+    userId: user._id,
+  };
+
+  post.comments.push(userComment);
+
+  await post.save();
+  return res.status(200).json({
+    comment: userComment,
+    message: "Comentário adicionado com sucesso!",
+  });
 };
 
 module.exports = {
@@ -159,4 +191,5 @@ module.exports = {
   getPostById,
   updatePost,
   addLikeToPost,
+  addCommentToPost,
 };

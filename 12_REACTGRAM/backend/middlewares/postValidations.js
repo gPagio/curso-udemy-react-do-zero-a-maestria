@@ -30,7 +30,18 @@ const postUpdateValidation = () => {
   ];
 };
 
+const commentValidation = () => {
+  return [
+    body("comment")
+      .isString()
+      .withMessage("O comentário deve ser uma string")
+      .isLength({ min: 3 })
+      .withMessage("O comentário deve ter pelo menos 3 caracteres"),
+  ];
+};
+
 module.exports = {
   postInsertValidation,
   postUpdateValidation,
+  commentValidation,
 };

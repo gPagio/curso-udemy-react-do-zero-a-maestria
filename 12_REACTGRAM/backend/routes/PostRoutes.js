@@ -10,12 +10,14 @@ const {
   getPostById,
   updatePost,
   addLikeToPost,
+  addCommentToPost,
 } = require("../controllers/PostController");
 
 // Middlewares
 const {
   postInsertValidation,
   postUpdateValidation,
+  commentValidation,
 } = require("../middlewares/postValidations");
 
 const authGuard = require("../middlewares/authGuard");
@@ -40,5 +42,6 @@ router.get("/:id", authGuard, getPostById);
 
 router.put("/:id", authGuard, postUpdateValidation(), validate, updatePost);
 router.put("/like/:id", authGuard, addLikeToPost);
+router.put("/comment/:id", authGuard, commentValidation(), validate, addCommentToPost);
 
 module.exports = router;

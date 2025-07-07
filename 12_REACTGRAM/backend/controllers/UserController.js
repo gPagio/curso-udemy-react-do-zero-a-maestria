@@ -29,8 +29,8 @@ const register = async (req, res) => {
 
   // Criar o usuário
   const newUser = await User.create({
-    name,
-    email,
+    name: name.trim(),
+    email: email.trim(),
     password: passwordHash,
   });
 
@@ -80,7 +80,7 @@ const update = async (req, res) => {
   ).select("-password");
 
   if (name) {
-    user.name = name;
+    user.name = name.trim();
   }
 
   if (password) {
@@ -95,7 +95,7 @@ const update = async (req, res) => {
   }
 
   if (req.files) {
-    user.profileImage = req.files[0].originalname;
+    user.profileImage = req.files[0].originalname.trim();
   }
 
   await user.save();
