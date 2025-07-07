@@ -1,0 +1,17 @@
+meta {
+  name: Atualizar Post
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{urlBase}}/posts/686bb4b4cb58aeedbced7871
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title":"Foto 5 Update"
+  }
+}

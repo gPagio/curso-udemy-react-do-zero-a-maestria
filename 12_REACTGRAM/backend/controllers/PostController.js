@@ -39,7 +39,7 @@ const deletePost = async (req, res) => {
   if (!post.userId.equals(req.user._id)) {
     return res
       .status(422)
-      .json({ errors: ["Ocorreu um erro ao deletar o post!"] });
+      .json({ errors: ["Você não tem permissão para editar este post!"] });
   }
 
   await Post.findByIdAndDelete(post._id);
@@ -93,10 +93,41 @@ const getPostById = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(422).json({ errors: ["ID inválido!"] });
+  }
+
+  const post = await Post.findById(id);
+  if (!post) {
+    return res.status(404).json({ errors: ["Post não encontrado!"] });
+  }
+
+  if (!post.userId.equals(req.user._id)) {
+    return res
+      .status(403)
+      .json({ errors: ["Você não tem permissão para editar este post!"] });
+  }
+
+  if (title) {
+    post.title = title;
+  }
+
+  await post.save();
+
+  return res
+    .status(200)
+    .json({ post, message: "Post atualizado com sucesso!" });
+};
+
 module.exports = {
   insertPost,
   deletePost,
   getAllPosts,
   getUserPosts,
   getPostById,
+  updatePost,
 };
