@@ -9,6 +9,7 @@ const {
   getUserPosts,
   getPostById,
   updatePost,
+  addLikeToPost,
 } = require("../controllers/PostController");
 
 // Middlewares
@@ -38,5 +39,6 @@ router.get("/user/:id", authGuard, getUserPosts);
 router.get("/:id", authGuard, getPostById);
 
 router.put("/:id", authGuard, postUpdateValidation(), validate, updatePost);
+router.put("/like/:id", authGuard, addLikeToPost);
 
 module.exports = router;

@@ -123,6 +123,34 @@ const updatePost = async (req, res) => {
     .json({ post, message: "Post atualizado com sucesso!" });
 };
 
+const addLikeToPost = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(422).json({ errors: ["ID inválido!"] });
+  }
+
+  const post = await Post.findById(id);
+  if (!post) {
+    return res.status(404).json({ errors: ["Post não encontrado!"] });
+  }
+
+  const reqUser = req.user;
+  if (post.likes.includes(reqUser._id)) {
+    return res.status(422).json({ errors: ["Você já curtiu este post!"] });
+  }
+
+  post.likes.push(reqUser._id);
+  await post.save();
+  return res
+    .status(200)
+    .json({
+      postId: id,
+      userId: reqUser._id,
+      message: "Post curtido com sucesso!",
+    });
+};
+
 module.exports = {
   insertPost,
   deletePost,
@@ -130,4 +158,5 @@ module.exports = {
   getUserPosts,
   getPostById,
   updatePost,
+  addLikeToPost,
 };
