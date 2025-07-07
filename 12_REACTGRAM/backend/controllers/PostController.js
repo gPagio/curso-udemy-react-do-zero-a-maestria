@@ -49,7 +49,17 @@ const deletePost = async (req, res) => {
     .json({ id: post._id, message: "Post deletado com sucesso!" });
 };
 
+const getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find().sort("-createdAt").exec();
+    return res.status(200).json(posts);
+  } catch (error) {
+    return res.status(500).json({ errors: ["Erro ao buscar posts!"] });
+  }
+};
+
 module.exports = {
   insertPost,
   deletePost,
+  getAllPosts,
 };
