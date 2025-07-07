@@ -7,6 +7,7 @@ const {
   deletePost,
   getAllPosts,
   getUserPosts,
+  getPostById,
 } = require("../controllers/PostController");
 
 // Middlewares
@@ -28,6 +29,7 @@ router.post(
 router.delete("/:id", authGuard, deletePost);
 
 router.get("/", authGuard, getAllPosts);
-router.get("/user/:id", authGuard, getUserPosts); // Assuming you want to get all posts, not a specific one by ID
+router.get("/user/:id", authGuard, getUserPosts);
+router.get("/:id", authGuard, getPostById);
 
 module.exports = router;

@@ -61,6 +61,10 @@ const getAllPosts = async (req, res) => {
 const getUserPosts = async (req, res) => {
   const userId = req.params.id;
 
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(422).json({ errors: ["ID inválido!"] });
+  }
+
   try {
     const posts = await Post.find({ userId }).sort("-createdAt").exec();
     return res.status(200).json(posts);
@@ -71,9 +75,28 @@ const getUserPosts = async (req, res) => {
   }
 };
 
+const getPostById = async (req, res) => {
+  const postId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(postId)) {
+    return res.status(422).json({ errors: ["ID inválido!"] });
+  }
+
+  try {
+    const post = await Post.findById(postId).exec();
+    if (!post) {
+      return res.status(404).json({ errors: ["Post não encontrado!"] });
+    }
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ errors: ["Erro ao buscar o post!"] });
+  }
+};
+
 module.exports = {
   insertPost,
   deletePost,
   getAllPosts,
   getUserPosts,
+  getPostById,
 };
