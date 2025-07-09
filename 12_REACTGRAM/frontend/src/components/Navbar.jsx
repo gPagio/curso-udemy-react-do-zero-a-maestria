@@ -1,4 +1,4 @@
-import styles from "./Navbar.module.css";
+import "./Navbar.css";
 
 // React Components
 import { NavLink, Link } from "react-router-dom";
@@ -15,7 +15,7 @@ const Navbar = () => {
       <Link to="/">ReactGram</Link>
       <form>
         <BsSearch />
-        <input type="text" />
+        <input type="text" placeholder="Pesquisar" />
       </form>
       <ul id="nav-links">
         <li>
