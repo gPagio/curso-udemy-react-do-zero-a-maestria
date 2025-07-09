@@ -24,14 +24,10 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/login">
-            Entrar
-          </NavLink>
+          <NavLink to="/login">Entrar</NavLink>
         </li>
         <li>
-          <NavLink to="/register">
-            Cadastrar
-          </NavLink>
+          <NavLink to="/register">Cadastrar</NavLink>
         </li>
       </ul>
     </nav>
