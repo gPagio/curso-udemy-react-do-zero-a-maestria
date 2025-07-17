@@ -6,8 +6,11 @@ const postInsertValidation = () => {
       .not()
       .equals("undefined")
       .withMessage("O título é obrigatório")
+      .bail()
       .isString()
+      .notEmpty()
       .withMessage("O título é obrigatório")
+      .bail()
       .isLength({ min: 3 })
       .withMessage("O título deve ter pelo menos 3 caracteres"),
     body("image").custom((value, { req }) => {
@@ -24,7 +27,9 @@ const postUpdateValidation = () => {
     body("title")
       .optional()
       .isString()
-      .withMessage("O título deve ser uma string")
+      .notEmpty()
+      .withMessage("O título é obrigatório")
+      .bail()
       .isLength({ min: 3 })
       .withMessage("O título deve ter pelo menos 3 caracteres"),
   ];
@@ -34,7 +39,9 @@ const commentValidation = () => {
   return [
     body("comment")
       .isString()
-      .withMessage("O comentário deve ser uma string")
+      .notEmpty()
+      .withMessage("O comentário é obrigatório")
+      .bail()
       .isLength({ min: 3 })
       .withMessage("O comentário deve ter pelo menos 3 caracteres"),
   ];

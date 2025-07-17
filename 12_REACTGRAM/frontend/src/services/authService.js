@@ -13,6 +13,8 @@ const registerUser = async (data) => {
       // Salva item no localStorage do navegador
       localStorage.setItem("user", JSON.stringify(res));
     }
+
+    return res;
   } catch (error) {
     console.log(error);
   }
