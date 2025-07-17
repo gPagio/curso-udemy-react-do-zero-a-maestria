@@ -5,12 +5,24 @@ import { Link } from "react-router-dom";
 
 // Hooks
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+// Redux
+import { register, reset } from "../../slices/authSlice";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  // Hook que permite usar as funções do
+  // slice, em nosso caso, register e reset
+  const dispatch = useDispatch();
+
+  // useSelector é usado para selecionar um state específico
+  // dentro do estado global no arquivo store Redux configurado
+  const { loading, error } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +35,16 @@ const Register = () => {
     };
 
     console.log(user);
+
+    dispatch(register(user));
   };
+
+  // Esse useEffect é executado apenas uma vez ao montar o componente,
+  // pois o array de dependências contém apenas "dispatch", que é estável.
+  // Ele reseta os states do slice de autenticação ao entrar na tela de registro.
+  useEffect(() => {
+    dispatch(reset());
+  }, [dispatch]);
 
   return (
     <div id="register">
