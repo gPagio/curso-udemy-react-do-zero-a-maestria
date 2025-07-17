@@ -20,8 +20,14 @@ const registerUser = async (data) => {
   }
 };
 
+// Deslogar usuario
+const logoutUser = () => {
+  localStorage.removeItem("user");
+};
+
 const authService = {
   registerUser,
+  logoutUser,
 };
 
 export default authService;

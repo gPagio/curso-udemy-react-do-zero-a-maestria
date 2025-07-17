@@ -26,6 +26,11 @@ export const register = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk("auth/logout", async () => {
+  authService.logoutUser();
+  return;
+});
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -67,6 +72,12 @@ export const authSlice = createSlice({
         state.success = true;
         state.error = null;
         state.user = action.payload;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.user = null;
       })
       // Executa quando a função criada com o createAsyncThunk
       // retorna uma resposta de erro (rejected), ou seja,
