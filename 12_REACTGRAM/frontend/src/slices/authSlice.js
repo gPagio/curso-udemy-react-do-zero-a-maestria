@@ -13,18 +13,29 @@ const initialState = {
 
 // Registrar um usuario e logar no sistema
 // Vamos criar uma função com o createAsyncThunk, onde o
-// nome da entidade é auth e a ação é register (entidade/ação)
+// nome da entidade é auth e a ação é register (entidade/ação).
+
+// O dispatch envia uma ação para o Redux, que irá
+// atualizar o estado da aplicação com os dados informados
+// no payload. O thunkAPI é um objeto que contém várias
+// propriedades e métodos úteis, como rejectWithValue
+// para retornar um erro específico caso ocorra algum problema
 export const register = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
     const data = await authService.registerUser(user);
 
-    if (data.error) {
-      return thunkAPI.rejectWithValue(data.erros[0]);
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
     }
     return data;
   }
 );
+
+export const logoutUser = createAsyncThunk("auth/logout", async () => {
+  authService.logoutUser();
+  return;
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -46,10 +57,6 @@ export const authSlice = createSlice({
   // builder, podemos adicionar vários cases
   // para cada situação
   extraReducers: (builder) => {
-    // Executa quando a função criada com o createAsyncThunk
-    // retorna uma resposta de erro (rejected), ou seja,
-    // ocorreu algum problema durante a requisição e ela foi
-    // rejeitada. O erro retornado estará disponível em action.payload.
     builder
       // Executa quando a propriedade da função criada
       // com o createAsyncThunk seja pending, ou seja,
@@ -67,6 +74,12 @@ export const authSlice = createSlice({
         state.success = true;
         state.error = null;
         state.user = action.payload;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.user = null;
       })
       // Executa quando a função criada com o createAsyncThunk
       // retorna uma resposta de erro (rejected), ou seja,

@@ -13,13 +13,21 @@ const registerUser = async (data) => {
       // Salva item no localStorage do navegador
       localStorage.setItem("user", JSON.stringify(res));
     }
+
+    return res;
   } catch (error) {
     console.log(error);
   }
 };
 
+// Deslogar usuario
+const logoutUser = () => {
+  localStorage.removeItem("user");
+};
+
 const authService = {
   registerUser,
+  logoutUser,
 };
 
 export default authService;
