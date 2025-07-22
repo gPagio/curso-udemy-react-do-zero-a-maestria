@@ -18,7 +18,6 @@ import { useAuth } from "./hooks/useAuth";
 function App() {
   const { auth, loading } = useAuth();
 
-  console.log(loading);
   if (loading) return <p>Loading...</p>;
 
   return (

@@ -9,12 +9,30 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Redux
+import { login, reset } from "../../slices/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {};
+  const dispatch = useDispatch();
+
+  const { loading, error } = useSelector((state) => state.auth);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const user = {
+      email,
+      password,
+    };
+
+    dispatch(login(user));
+  };
+
+  useEffect(() => {
+    dispatch(reset());
+  }, [dispatch]);
 
   return (
     <div id="login">
@@ -38,6 +56,9 @@ const Login = () => {
         <button className="btn" type="submit">
           Entrar
         </button>
+        {!loading && <input type="submit" value="Cadastrar" />}
+        {loading && <input type="submit" value="Aguarde..." disabled />}
+        {error && <Message type="error" message={error} />}
         <p>
           Não tem uma conta? <Link to="/register">Crie uma!</Link>
         </p>
