@@ -37,6 +37,15 @@ export const logoutUser = createAsyncThunk("auth/logout", async () => {
   return;
 });
 
+export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
+  const data = await authService.loginUser(user);
+
+  if (data.errors) {
+    return thunkAPI.rejectWithValue(data.errors[0]);
+  }
+  return data;
+});
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -65,6 +74,10 @@ export const authSlice = createSlice({
         state.loading = true;
         state.error = false;
       })
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
       // Executa quando a função criada com o createAsyncThunk
       // retorna uma resposta bem-sucedida (fulfilled), ou seja,
       // a requisição foi concluída com sucesso e temos os dados
@@ -81,11 +94,22 @@ export const authSlice = createSlice({
         state.error = null;
         state.user = null;
       })
+      .addCase(login.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.user = null;
+      })
       // Executa quando a função criada com o createAsyncThunk
       // retorna uma resposta de erro (rejected), ou seja,
       // ocorreu algum problema durante a requisição e ela foi
       // rejeitada. O erro retornado estará disponível em action.payload.
       .addCase(register.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.user = null;
+      })
+      .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         state.user = null;

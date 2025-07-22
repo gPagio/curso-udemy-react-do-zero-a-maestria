@@ -47,6 +47,7 @@ const loginUser = async (data) => {
 const authService = {
   registerUser,
   logoutUser,
+  loginUser,
 };
 
 export default authService;
