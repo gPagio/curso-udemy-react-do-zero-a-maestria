@@ -1,6 +1,27 @@
 import "./EditProfile.css";
 
+import { uploads } from "../../utils/config";
+
+// Hooks
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+// Redux
+import { profile, resetMessage } from "../../slices/userSlice";
+
+// Components
+import Message from "../../components/Message";
+
 const EditProfile = () => {
+  const dispatch = useDispatch();
+  const { user, message, error, loading } = useSelector((state) => state.user);
+
+  console.log(user);
+
+  useEffect(() => {
+    dispatch(profile());
+  }, [dispatch]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -15,7 +36,7 @@ const EditProfile = () => {
 
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Nome" />
-        <input type="email" placeholder="E-mail" disabled/>
+        <input type="email" placeholder="E-mail" disabled />
         <label>
           <span>Imagem de perfil:</span>
           <input type="file" />
