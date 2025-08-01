@@ -33,8 +33,6 @@ const loginUser = async (data) => {
       .then((res) => res.json())
       .catch((err) => err);
 
-    console.log(res);
-
     if (res._id) {
       // Salva item no localStorage do navegador
       localStorage.setItem("user", JSON.stringify(res));
