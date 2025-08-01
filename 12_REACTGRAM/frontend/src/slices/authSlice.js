@@ -98,7 +98,7 @@ export const authSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.error = null;
-        state.user = null;
+        state.user = action.payload;
       })
       // Executa quando a função criada com o createAsyncThunk
       // retorna uma resposta de erro (rejected), ou seja,
