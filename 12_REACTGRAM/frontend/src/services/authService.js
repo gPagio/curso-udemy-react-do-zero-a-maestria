@@ -31,7 +31,11 @@ const loginUser = async (data) => {
   try {
     const res = await fetch(api + "/users/login", config)
       .then((res) => res.json())
-      .catch((err) => err);
+      .catch(() => null);
+
+    if (!res) {
+      return { errors: ["Servidor indisponível. Tente novamente mais tarde."] };
+    }
 
     if (res._id) {
       // Salva item no localStorage do navegador
