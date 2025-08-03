@@ -40,7 +40,7 @@ const Login = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (userAuthenticated) {
+    if (userAuthenticated && userAuthenticated._id) {
       navigate("/");
     }
   }, [userAuthenticated]);
@@ -64,10 +64,14 @@ const Login = () => {
           value={password || ""}
           required
         />
-        <button className="btn" type="submit">
-          Entrar
-        </button>
-        {!loading && <input type="submit" value="Cadastrar" />}
+        {!loading && (
+          <>
+            <button className="btn" type="submit">
+              Entrar
+            </button>
+            <input type="submit" value="Cadastrar" />
+          </>
+        )}
         {loading && <input type="submit" value="Aguarde..." disabled />}
         {error && <Message type="error" message={error} />}
         <p>
