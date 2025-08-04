@@ -93,9 +93,9 @@ const update = async (req, res) => {
   if (bio) {
     user.bio = bio;
   }
-
-  if (req.files) {
-    user.profileImage = req.files[0].originalname.trim();
+  
+  if (req.file) {
+    user.profileImage = req.file.filename.trim();
   }
 
   await user.save();
