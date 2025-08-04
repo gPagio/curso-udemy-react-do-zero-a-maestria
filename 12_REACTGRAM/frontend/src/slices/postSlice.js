@@ -10,6 +10,21 @@ const initialState = {
   message: null,
 };
 
+export const publishPost = createAsyncThunk(
+  "post/publish",
+  async (post, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+
+    const data = await postService.publishPost(post, token);
+
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -17,6 +32,26 @@ export const postSlice = createSlice({
     resetMessage: (state) => {
       state.message = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(publishPost.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(publishPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.post = action.payload;
+        state.posts.unshift(state.post);
+        state.message = "Post criado com sucesso!";
+      })
+      .addCase(publishPost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.user = {};
+      });
   },
 });
 
