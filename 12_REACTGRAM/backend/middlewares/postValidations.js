@@ -7,9 +7,11 @@ const postInsertValidation = () => {
       .equals("undefined")
       .withMessage("O título é obrigatório")
       .bail()
-      .isString()
       .notEmpty()
       .withMessage("O título é obrigatório")
+      .bail()
+      .isString()
+      .withMessage("O título deve ser uma string")
       .bail()
       .isLength({ min: 3 })
       .withMessage("O título deve ter pelo menos 3 caracteres"),
