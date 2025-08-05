@@ -18,6 +18,7 @@ import {
   publishPost,
   resetMessage,
   getUserPosts,
+  deletePost,
 } from "../../slices/postSlice";
 
 const Profile = () => {
@@ -39,6 +40,12 @@ const Profile = () => {
   const newPostForm = useRef();
   const editPostForm = useRef();
 
+  const resetComponentMessage = () => {
+    setTimeout(() => {
+      dispatch(resetMessage());
+    }, 2000);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -58,15 +65,18 @@ const Profile = () => {
     // Se der algum problema tirar esse setImage
     setImage("");
 
-    setTimeout(() => {
-      dispatch(resetMessage());
-    }, 2000);
+    resetComponentMessage();
   };
 
   const handleFile = (e) => {
     const image = e.target.files[0];
 
     setImage(image);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deletePost(id));
+    resetComponentMessage();
   };
 
   useEffect(() => {
@@ -135,7 +145,7 @@ const Profile = () => {
                       <BsFillEyeFill />
                     </Link>
                     <BsPencilFill />
-                    <BsXLg />
+                    <BsXLg onClick={() => handleDelete(post._id)} />
                   </div>
                 ) : (
                   <Link className="btn" to={`posts/${post._id}`}>
