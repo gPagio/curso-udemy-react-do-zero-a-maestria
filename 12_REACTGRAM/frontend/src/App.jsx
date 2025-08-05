@@ -9,6 +9,7 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Profile from "./pages/Profile/Profile";
+import Post from "./pages/Post/Post";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -47,6 +48,10 @@ function App() {
             <Route
               path="/users/:id"
               element={auth ? <Profile /> : <Navigate to={"/login"} />}
+            ></Route>
+            <Route
+              path="/posts/:id"
+              element={auth ? <Post /> : <Navigate to={"/login"} />}
             ></Route>
           </Routes>
         </div>
