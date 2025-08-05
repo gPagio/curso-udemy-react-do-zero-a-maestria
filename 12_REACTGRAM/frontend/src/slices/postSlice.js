@@ -25,7 +25,7 @@ export const publishPost = createAsyncThunk(
   }
 );
 
-const getUserPosts = createAsyncThunk(
+export const getUserPosts = createAsyncThunk(
   "post/userPosts",
   async (id, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;

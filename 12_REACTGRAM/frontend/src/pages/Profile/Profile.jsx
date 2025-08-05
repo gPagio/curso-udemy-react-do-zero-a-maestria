@@ -14,7 +14,11 @@ import { useParams } from "react-router-dom";
 
 // Redux
 import { getUserDetails } from "../../slices/userSlice";
-import { publishPost, resetMessage } from "../../slices/postSlice";
+import {
+  publishPost,
+  resetMessage,
+  getUserPosts,
+} from "../../slices/postSlice";
 
 const Profile = () => {
   const { id } = useParams();
@@ -67,6 +71,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUserDetails(id));
+    dispatch(getUserPosts(id));
   }, [dispatch, id]);
 
   if (loading) {
@@ -112,6 +117,30 @@ const Profile = () => {
           {messagePost && <Message type="success" message={messagePost} />}
         </>
       )}
+      <div className="user-posts">
+        <h2>Posts publicados:</h2>
+        <div className="posts-container">
+          {posts &&
+            posts.map((post) => (
+              <div className="post" key={post._id}>
+                {post.image && (
+                  <img
+                    src={`${uploads}/posts/${post.image}`}
+                    alt={post.title}
+                  />
+                )}
+                {id === userAuth._id ? (
+                  <p>Actions</p>
+                ) : (
+                  <Link className="btn" to={`posts/${post._id}`}>
+                    Ver
+                  </Link>
+                )}
+              </div>
+            ))}
+          {posts.length === 0 && <p>Nenhum post publicado!</p>}
+        </div>
+      </div>
     </div>
   );
 };

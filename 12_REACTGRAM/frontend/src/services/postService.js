@@ -18,7 +18,7 @@ const getUserPosts = async (id, token) => {
   const config = requestConfig("GET", null, token);
 
   try {
-    const res = await fetch(api + "posts/user/" + id, config)
+    const res = await fetch(api + "/posts/user/" + id, config)
       .then((res) => res.json())
       .catch((err) => err);
 
