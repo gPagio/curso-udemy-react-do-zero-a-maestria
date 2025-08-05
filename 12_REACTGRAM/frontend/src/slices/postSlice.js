@@ -25,6 +25,21 @@ export const publishPost = createAsyncThunk(
   }
 );
 
+const getUserPosts = createAsyncThunk(
+  "post/userPosts",
+  async (id, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+
+    const data = await postService.getUserPosts(id, token);
+
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -51,6 +66,16 @@ export const postSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         state.user = {};
+      })
+      .addCase(getUserPosts.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getUserPosts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.posts = action.payload;
       });
   },
 });

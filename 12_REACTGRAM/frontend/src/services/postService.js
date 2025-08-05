@@ -14,8 +14,8 @@ const publishPost = async (data, token) => {
   }
 };
 
-const getUserPosts = async (id) => {
-  const config = requestConfig("GET");
+const getUserPosts = async (id, token) => {
+  const config = requestConfig("GET", null, token);
 
   try {
     const res = await fetch(api + "posts/user/" + id, config)
@@ -28,6 +28,6 @@ const getUserPosts = async (id) => {
   }
 };
 
-const postService = { publishPost };
+const postService = { publishPost, getUserPosts };
 
 export default postService;
