@@ -173,7 +173,11 @@ const Profile = () => {
                 value={editTitle || ""}
               />
               <input type="submit" value="Salvar" />
-              <button className="cancel-btn" onClick={handleCancelEdit}>
+              <button
+                type="button"
+                className="cancel-btn"
+                onClick={handleCancelEdit}
+              >
                 Cancelar Edição
               </button>
             </form>
