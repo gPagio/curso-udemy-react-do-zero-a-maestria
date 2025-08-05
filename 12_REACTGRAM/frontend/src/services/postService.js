@@ -14,6 +14,20 @@ const publishPost = async (data, token) => {
   }
 };
 
+const getUserPosts = async (id) => {
+  const config = requestConfig("GET");
+
+  try {
+    const res = await fetch(api + "posts/user/" + id, config)
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const postService = { publishPost };
 
 export default postService;
