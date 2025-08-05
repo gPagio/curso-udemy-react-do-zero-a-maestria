@@ -55,6 +55,25 @@ export const deletePost = createAsyncThunk(
   }
 );
 
+export const updatePost = createAsyncThunk(
+  "post/update",
+  async (postData, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+
+    const data = postService.updatePost(
+      postData.id,
+      { title: postData.title },
+      token
+    );
+
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -100,12 +119,35 @@ export const postSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.error = null;
-        state.posts = state.posts.filter((photo) => {
-          return photo._id !== action.payload.id;
+        state.posts = state.posts.filter((post) => {
+          return post._id !== action.payload.id;
         });
         state.message = action.payload.message;
       })
       .addCase(deletePost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.user = {};
+      })
+      .addCase(updatePost.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.posts.map((post) => {
+          if (post._id === action.payload.post._id) {
+            return (post.title = action.payload.post.title);
+          }
+
+          return post;
+        });
+
+        state.message = action.payload.message;
+      })
+      .addCase(updatePost.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         state.user = {};
