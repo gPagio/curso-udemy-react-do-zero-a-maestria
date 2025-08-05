@@ -19,6 +19,7 @@ import {
   resetMessage,
   getUserPosts,
   deletePost,
+  updatePost,
 } from "../../slices/postSlice";
 
 const Profile = () => {
@@ -37,6 +38,10 @@ const Profile = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
 
+  const [editId, setEditId] = useState("");
+  const [editTitle, setEditTitle] = useState("");
+  const [editImage, setEditImage] = useState("");
+
   const newPostForm = useRef();
   const editPostForm = useRef();
 
@@ -44,7 +49,7 @@ const Profile = () => {
     setTimeout(() => {
       dispatch(resetMessage());
     }, 2000);
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,6 +82,38 @@ const Profile = () => {
   const handleDelete = (id) => {
     dispatch(deletePost(id));
     resetComponentMessage();
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+
+    const postData = {
+      title: editTitle,
+      id: editId,
+    };
+
+    dispatch(updatePost(postData));
+
+    resetComponentMessage();
+  };
+
+  const hideOrShowForms = () => {
+    newPostForm.current.classList.toggle("hide");
+    editPostForm.current.classList.toggle("hide");
+  };
+
+  const handleEdit = (post) => {
+    if (editPostForm.current.classList.contains("hide")) {
+      hideOrShowForms();
+    }
+
+    setEditId(post._id);
+    setEditTitle(post.title);
+    setEditImage(post.image);
+  };
+
+  const handleCancelEdit = () => {
+    hideOrShowForms();
   };
 
   useEffect(() => {
@@ -123,6 +160,24 @@ const Profile = () => {
               )}
             </form>
           </div>
+          <div className="edit-post hide" ref={editPostForm}>
+            <p>Editando:</p>
+            {editImage && (
+              <img src={`${uploads}/posts/${editImage}`} alt={editTitle} />
+            )}
+            <form onSubmit={handleUpdate}>
+              <input
+                type="text"
+                placeholder="Insira o novo título"
+                onChange={(e) => setEditTitle(e.target.value)}
+                value={editTitle || ""}
+              />
+              <input type="submit" value="Salvar" />
+              <button className="cancel-btn" onClick={handleCancelEdit}>
+                Cancelar Edição
+              </button>
+            </form>
+          </div>
           {errorPost && <Message type="error" message={errorPost} />}
           {messagePost && <Message type="success" message={messagePost} />}
         </>
@@ -144,7 +199,7 @@ const Profile = () => {
                     <Link to={`/posts/${post._id}`}>
                       <BsFillEyeFill />
                     </Link>
-                    <BsPencilFill />
+                    <BsPencilFill onClick={() => handleEdit(post)} />
                     <BsXLg onClick={() => handleDelete(post._id)} />
                   </div>
                 ) : (

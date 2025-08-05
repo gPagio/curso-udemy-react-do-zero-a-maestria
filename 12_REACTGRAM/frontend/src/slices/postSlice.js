@@ -45,7 +45,7 @@ export const deletePost = createAsyncThunk(
   async (id, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;
 
-    const data = postService.deletePost(id, token);
+    const data = await postService.deletePost(id, token);
 
     if (data.errors) {
       return thunkAPI.rejectWithValue(data.errors[0]);
@@ -60,7 +60,7 @@ export const updatePost = createAsyncThunk(
   async (postData, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;
 
-    const data = postService.updatePost(
+    const data = await postService.updatePost(
       postData.id,
       { title: postData.title },
       token
