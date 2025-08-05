@@ -56,6 +56,26 @@ const updatePost = async (id, data, token) => {
   }
 };
 
-const postService = { publishPost, getUserPosts, deletePost, updatePost };
+const getPostById = async (id) => {
+  const config = requestConfig("GET");
+
+  try {
+    const res = await fetch(api + "/posts/" + id, config)
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const postService = {
+  publishPost,
+  getUserPosts,
+  deletePost,
+  updatePost,
+  getPostById,
+};
 
 export default postService;
