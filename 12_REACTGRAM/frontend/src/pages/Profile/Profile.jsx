@@ -36,8 +36,8 @@ const Profile = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
 
-  const newPhotoForm = useRef();
-  const editPhotoForm = useRef();
+  const newPostForm = useRef();
+  const editPostForm = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -91,7 +91,7 @@ const Profile = () => {
       </div>
       {id === userAuth._id && (
         <>
-          <div className="new-photo" ref={newPhotoForm}>
+          <div className="new-post" ref={newPostForm}>
             <h3>Compartilhe algum momento seu:</h3>
             <form onSubmit={handleSubmit}>
               <label>
@@ -130,7 +130,13 @@ const Profile = () => {
                   />
                 )}
                 {id === userAuth._id ? (
-                  <p>Actions</p>
+                  <div className="actions">
+                    <Link to={`/posts/${post._id}`}>
+                      <BsFillEyeFill />
+                    </Link>
+                    <BsPencilFill />
+                    <BsXLg />
+                  </div>
                 ) : (
                   <Link className="btn" to={`posts/${post._id}`}>
                     Ver
