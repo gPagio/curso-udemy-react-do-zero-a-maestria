@@ -47,9 +47,6 @@ const Profile = () => {
       formData.append("image", image);
     }
 
-    console.log(formData.title);
-    console.log(formData.image);
-
     dispatch(publishPost(formData));
 
     setTitle("");
