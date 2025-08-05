@@ -12,7 +12,7 @@ const insertPost = async (req, res) => {
   const newPost = new Post({
     image: image.trim(),
     title: title.trim(),
-    userId: user._id.trim(),
+    userId: user._id,
     userName: user.name.trim(),
   });
 
