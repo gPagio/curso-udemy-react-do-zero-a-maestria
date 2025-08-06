@@ -84,6 +84,20 @@ const like = async (id, token) => {
   }
 };
 
+const comment = async (id, data, token) => {
+  const config = requestConfig("PUT", data, token);
+
+  try {
+    const res = await fetch(api + "/posts/comment/" + id, config)
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const postService = {
   publishPost,
   getUserPosts,
@@ -91,6 +105,7 @@ const postService = {
   updatePost,
   getPostById,
   like,
+  comment,
 };
 
 export default postService;
