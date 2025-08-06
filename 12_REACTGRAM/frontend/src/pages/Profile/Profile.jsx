@@ -189,7 +189,7 @@ const Profile = () => {
       <div className="user-posts">
         <h2>Posts publicados:</h2>
         <div className="posts-container">
-          {posts &&
+          {posts && posts.length > 0 &&
             posts.map((post) => (
               <div className="post" key={post._id}>
                 {post.image && (
