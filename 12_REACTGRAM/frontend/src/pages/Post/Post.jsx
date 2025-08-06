@@ -4,6 +4,7 @@ import { uploads } from "../../utils/config";
 
 // Components
 import PostItem from "../../components/PostItem";
+import LikeContainer from "../../components/LikeContainer";
 import Message from "../../components/Message";
 import { Link } from "react-router-dom";
 
@@ -11,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getPostById } from "../../slices/postSlice";
+import { getPostById, like } from "../../slices/postSlice";
 
 const Post = () => {
   const { id } = useParams();
@@ -20,6 +21,10 @@ const Post = () => {
 
   const { user } = useSelector((state) => state.auth);
   const { post, loading, error, message } = useSelector((state) => state.post);
+
+  const handleLike = () => {
+    dispatch(like(post._id));
+  };
 
   useEffect(() => {
     dispatch(getPostById(id));
@@ -30,6 +35,11 @@ const Post = () => {
   return (
     <div id="post">
       <PostItem post={post}></PostItem>
+      <LikeContainer
+        post={post}
+        user={user}
+        handleLike={handleLike}
+      ></LikeContainer>
     </div>
   );
 };
