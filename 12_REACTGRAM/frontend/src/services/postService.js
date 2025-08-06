@@ -70,6 +70,20 @@ const getPostById = async (id, token) => {
   }
 };
 
+const like = async (id, token) => {
+  const config = requestConfig("PUT", null, token);
+
+  try {
+    const res = await fetch(api + "/posts/like/" + id, config)
+      .then((res) => res.json)
+      .catch((err) => err);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const postService = {
   publishPost,
   getUserPosts,
