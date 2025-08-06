@@ -191,7 +191,7 @@ export const postSlice = createSlice({
         }
 
         state.posts.map((post) => {
-          if (post._id === action.payload.post.postId) {
+          if (post._id === action.payload.postId) {
             return post.likes.push(action.payload.userId);
           }
 
