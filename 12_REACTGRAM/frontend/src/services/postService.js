@@ -56,8 +56,8 @@ const updatePost = async (id, data, token) => {
   }
 };
 
-const getPostById = async (id) => {
-  const config = requestConfig("GET");
+const getPostById = async (id, token) => {
+  const config = requestConfig("GET", null, token);
 
   try {
     const res = await fetch(api + "/posts/" + id, config)
