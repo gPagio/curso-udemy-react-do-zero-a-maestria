@@ -1,0 +1,15 @@
+.post-item img {
+  width: 100%;
+}
+
+#home .post-item h2 {
+  margin-bottom: 0.2em;
+}
+
+.post-author {
+  text-align: left;
+}
+
+.post-author a {
+  font-weight: bold;
+}
