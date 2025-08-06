@@ -90,6 +90,7 @@ const postService = {
   deletePost,
   updatePost,
   getPostById,
+  like,
 };
 
 export default postService;

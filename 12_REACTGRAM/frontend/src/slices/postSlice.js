@@ -82,6 +82,17 @@ export const getPostById = createAsyncThunk(
   }
 );
 
+export const like = createAsyncThunk("post/like", async (id, thunkAPI) => {
+  const token = thunkAPI.getState().auth.user.token;
+  const data = await postService.like(id, token);
+
+  if (data.errors) {
+    return thunkAPI.rejectWithValue(data.errors[0]);
+  }
+
+  return data;
+});
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -158,7 +169,7 @@ export const postSlice = createSlice({
       .addCase(updatePost.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        state.user = {};
+        state.post = {};
       })
       .addCase(getPostById.pending, (state) => {
         state.loading = true;
@@ -169,6 +180,30 @@ export const postSlice = createSlice({
         state.success = true;
         state.error = null;
         state.post = action.payload;
+      })
+      .addCase(like.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+
+        if (state.post.likes) {
+          state.post.likes.push(action.payload.userId);
+        }
+
+        state.posts.map((post) => {
+          if (post._id === action.payload.post.postId) {
+            return post.likes.push(action.payload.userId);
+          }
+
+          return post;
+        });
+
+        state.message = action.payload.message;
+      })
+      .addCase(like.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.post = {};
       });
   },
 });
