@@ -10,6 +10,7 @@ import Register from "./pages/Auth/Register";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Profile from "./pages/Profile/Profile";
 import Post from "./pages/Post/Post";
+import Search from "./pages/Search/Search";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -30,16 +31,20 @@ function App() {
         <div className="container">
           <Routes>
             <Route
-              path="/"
-              element={auth ? <Home /> : <Navigate to={"/login"} />}
-            ></Route>
-            <Route
               path="/login"
               element={!auth ? <Login /> : <Navigate to={"/"} />}
             ></Route>
             <Route
               path="/register"
               element={!auth ? <Register /> : <Navigate to={"/"} />}
+            ></Route>
+            <Route
+              path="/"
+              element={auth ? <Home /> : <Navigate to={"/login"} />}
+            ></Route>
+            <Route
+              path="/search"
+              element={auth ? <Search /> : <Navigate to={"/login"} />}
             ></Route>
             <Route
               path="/profile"
