@@ -114,12 +114,27 @@ export const comment = createAsyncThunk(
 
 export const getAllPosts = createAsyncThunk(
   "post/getAllPosts",
-  // Colocamos "_" como primeiro parâmetro já que não 
+  // Colocamos "_" como primeiro parâmetro já que não
   // temos um para podermos utilizar a thunkAPI. Dessa
   // forma o React simula um parametro falso.
   async (_, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;
     return await postService.getAllPosts(token);
+  }
+);
+
+export const searchPosts = createAsyncThunk(
+  "post/searchPosts",
+  async (query, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+
+    const data = await postService.searchPosts(query, token);
+
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
   }
 );
 
@@ -250,6 +265,16 @@ export const postSlice = createSlice({
         state.error = false;
       })
       .addCase(getAllPosts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.posts = action.payload;
+      })
+      .addCase(searchPosts.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(searchPosts.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
         state.error = null;
