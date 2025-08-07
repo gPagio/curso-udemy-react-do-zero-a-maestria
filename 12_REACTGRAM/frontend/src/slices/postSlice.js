@@ -112,6 +112,10 @@ export const comment = createAsyncThunk(
   }
 );
 
+export const getAllPosts = createAsyncThunk("post/getAllPosts", async () => {
+  return await postService.getAllPosts();
+});
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -233,6 +237,16 @@ export const postSlice = createSlice({
       .addCase(comment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(getAllPosts.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getAllPosts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.posts = action.payload;
       });
   },
 });
