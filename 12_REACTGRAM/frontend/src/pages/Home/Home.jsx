@@ -36,7 +36,7 @@ const Home = () => {
     <div id="home">
       {posts &&
         posts.map((post) => (
-          <div key={post._id}>
+          <div className="post-container" key={post._id}>
             <PostItem post={post} />
             <LikeContainer post={post} user={user} handleLike={handleLike} />
             <Link className="btn" to={`/posts/${post._id}`}>Ver Mais</Link>
