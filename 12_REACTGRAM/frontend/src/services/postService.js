@@ -98,8 +98,8 @@ const comment = async (id, data, token) => {
   }
 };
 
-const getAllPosts = async () => {
-  const config = requestConfig("GET");
+const getAllPosts = async (token) => {
+  const config = requestConfig("GET", null, token);
 
   try {
     const res = await fetch(api + "/posts", config)

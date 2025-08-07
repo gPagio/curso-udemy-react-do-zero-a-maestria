@@ -112,9 +112,16 @@ export const comment = createAsyncThunk(
   }
 );
 
-export const getAllPosts = createAsyncThunk("post/getAllPosts", async () => {
-  return await postService.getAllPosts();
-});
+export const getAllPosts = createAsyncThunk(
+  "post/getAllPosts",
+  // Colocamos "_" como primeiro parâmetro já que não 
+  // temos um para podermos utilizar a thunkAPI. Dessa
+  // forma o React simula um parametro falso.
+  async (_, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    return await postService.getAllPosts(token);
+  }
+);
 
 export const postSlice = createSlice({
   name: "post",
