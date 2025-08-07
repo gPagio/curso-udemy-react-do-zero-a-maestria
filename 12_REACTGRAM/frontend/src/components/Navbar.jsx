@@ -10,10 +10,10 @@ import {
 } from "react-icons/bs";
 
 // Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // Redux
 import { logoutUser, reset } from "../slices/authSlice";
@@ -26,6 +26,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -37,7 +38,17 @@ const Navbar = () => {
     e.preventDefault();
 
     if (query) return navigate(`/search?q=${query}`);
+    return navigate("/");
   };
+
+  // Sincronizar a query de busca do
+  // navegador com o campo pesquisar
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const q = params.get("q");
+
+    setQuery(q || "");
+  }, [location]);
 
   return (
     <nav id="nav">
@@ -48,6 +59,7 @@ const Navbar = () => {
           type="text"
           placeholder="Pesquisar"
           onChange={(e) => setQuery(e.target.value)}
+          value={query}
         />
       </form>
       <ul id="nav-links">
