@@ -6,9 +6,10 @@ import type { ITask } from "../interfaces/ITask";
 
 type Props = {
   taskList: ITask[];
+  handleDeleteTask(id: number): void;
 };
 
-const TaskList = ({ taskList }: Props) => {
+const TaskList = ({ taskList, handleDeleteTask }: Props) => {
   return (
     <>
       {taskList.length > 0 ? (
@@ -23,12 +24,15 @@ const TaskList = ({ taskList }: Props) => {
             </div>
             <div className={styles.actions}>
               <i className="bi bi-pencil"></i>
-              <i className="bi bi-trash"></i>
+              <i
+                className="bi bi-trash"
+                onClick={() => handleDeleteTask(task.id)}
+              ></i>
             </div>
           </div>
         ))
       ) : (
-        <p>Não tem tarefa cadastrada</p>
+        <p>Parabéns, você concluiu todas as suas tarefas!</p>
       )}
     </>
   );
