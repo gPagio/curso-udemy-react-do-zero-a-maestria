@@ -21,9 +21,21 @@ function App() {
         return task.id !== id;
       })
     );
-
-    console.log(id);
   };
+
+  const hideOrShowModal = (display: boolean) => {
+    const modal = document.querySelector("#modal");
+
+    if (display) {
+      modal!.classList.remove("hide");
+    } else {
+      modal!.classList.add("hide");
+    }
+  };
+
+  const handleEditTask = (): void => {
+    hideOrShowModal(true);
+  }
 
   return (
     <div>
@@ -42,7 +54,7 @@ function App() {
         </div>
         <div>
           <h2>Suas tarefas:</h2>
-          <TaskList taskList={taskList} handleDeleteTask={handleDeleteTask} />
+          <TaskList taskList={taskList} handleDeleteTask={handleDeleteTask} handleEditTask={handleEditTask}/>
         </div>
       </main>
       <Footer />

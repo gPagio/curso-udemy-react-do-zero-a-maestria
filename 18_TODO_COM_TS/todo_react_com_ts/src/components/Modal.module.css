@@ -21,3 +21,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.modal h2 {
+  margin-bottom: 1em;
+}
+
+.modal form {
+  width: 90%;
+}
