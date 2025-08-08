@@ -2,7 +2,7 @@
 import styles from "./TaskForm.module.css";
 
 // Hooks
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Types
 import type { ChangeEvent, FormEvent } from "react";
@@ -15,7 +15,6 @@ type Props = {
 };
 
 const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
-  const [id, setId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [difficulty, setDifficulty] = useState<number>(0);
 
@@ -29,8 +28,6 @@ const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
 
     setTitle("");
     setDifficulty(0);
-
-    console.log(taskList);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
