@@ -10,14 +10,28 @@ import type { ITask } from "../interfaces/ITask";
 
 type Props = {
   btnText: string;
+  taskList: ITask[];
+  setTaskList?: React.Dispatch<React.SetStateAction<ITask[]>>;
 };
 
-const TaskForm = ({ btnText }: Props) => {
+const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
   const [id, setId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [difficulty, setDifficulty] = useState<number>(0);
 
-  const handleAddTask = () => {};
+  const handleAddTask = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const idNewTask = Math.floor(Math.random() * 100);
+    const newTask: ITask = { id: idNewTask, title, difficulty };
+
+    setTaskList!([...taskList, newTask]);
+
+    setTitle("");
+    setDifficulty(0);
+
+    console.log(taskList);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "title") setTitle(e.target.value);
@@ -33,6 +47,8 @@ const TaskForm = ({ btnText }: Props) => {
           name="title"
           placeholder="Título da tarefa"
           onChange={handleChange}
+          value={title}
+          required
         />
       </div>
       <div className={styles.input_container}>
@@ -42,6 +58,7 @@ const TaskForm = ({ btnText }: Props) => {
           name="difficulty"
           placeholder="Dificuldade da tarefa"
           onChange={handleChange}
+          value={difficulty}
         />
       </div>
       <input type="submit" value={btnText} />
