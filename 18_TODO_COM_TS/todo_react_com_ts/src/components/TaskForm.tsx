@@ -2,7 +2,7 @@
 import styles from "./TaskForm.module.css";
 
 // Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Types
 import type { ChangeEvent, FormEvent } from "react";
@@ -12,9 +12,10 @@ type Props = {
   btnText: string;
   taskList: ITask[];
   setTaskList?: React.Dispatch<React.SetStateAction<ITask[]>>;
+  task?: ITask | null;
 };
 
-const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
+const TaskForm = ({ btnText, taskList, setTaskList, task }: Props) => {
   const [title, setTitle] = useState<string>("");
   const [difficulty, setDifficulty] = useState<number>(0);
 
@@ -34,6 +35,13 @@ const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
     if (e.target.name === "title") setTitle(e.target.value);
     if (e.target.name === "difficulty") setDifficulty(parseInt(e.target.value));
   };
+
+  useEffect(() => {
+    if (task) {
+      setTitle(task.title);
+      setDifficulty(task.difficulty);
+    }
+  }, [task]);
 
   return (
     <form className={styles.form} onSubmit={handleAddTask}>

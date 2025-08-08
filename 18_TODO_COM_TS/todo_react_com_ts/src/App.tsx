@@ -14,6 +14,7 @@ import type { ITask } from "./interfaces/ITask";
 
 function App() {
   const [taskList, setTaskList] = useState<ITask[]>([]);
+  const [taskToUpdate, setTaskToUpdate] = useState<ITask | null>(null);
 
   const handleDeleteTask = (id: number) => {
     setTaskList(
@@ -33,19 +34,26 @@ function App() {
     }
   };
 
-  const handleEditTask = (): void => {
+  const handleEditTask = (task: ITask): void => {
     hideOrShowModal(true);
-  }
+    setTaskToUpdate(task);
+  };
 
   return (
     <div>
       <Modal
-        children={<TaskForm btnText="Editar Tarefa" taskList={taskList} />}
+        children={
+          <TaskForm
+            btnText="Editar Tarefa"
+            taskList={taskList}
+            task={taskToUpdate}
+          />
+        }
       />
       <Header />
       <main className={styles.main}>
         <div>
-          <h2>Oque você vai fazer?</h2>
+          <h2>O que você vai fazer?</h2>
           <TaskForm
             btnText="Criar Tarefa"
             taskList={taskList}
@@ -54,7 +62,11 @@ function App() {
         </div>
         <div>
           <h2>Suas tarefas:</h2>
-          <TaskList taskList={taskList} handleDeleteTask={handleDeleteTask} handleEditTask={handleEditTask}/>
+          <TaskList
+            taskList={taskList}
+            handleDeleteTask={handleDeleteTask}
+            handleEditTask={handleEditTask}
+          />
         </div>
       </main>
       <Footer />
