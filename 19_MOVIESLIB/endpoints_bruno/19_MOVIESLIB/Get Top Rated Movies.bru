@@ -1,0 +1,15 @@
+meta {
+  name: Get Top Rated Movies
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}top_rated?{{apiKey}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  {{apiKey}}: 
+}

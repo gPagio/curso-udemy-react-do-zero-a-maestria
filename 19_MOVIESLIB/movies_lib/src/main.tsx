@@ -7,9 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App.tsx";
 
 // Pages
-import Home from "./Pages/Home.tsx";
-import Movie from "./Pages/Movie.tsx";
-import Search from "./Pages/Search.tsx";
+import Home from "./pages/Home.tsx";
+import Movie from "./pages/Movie.tsx";
+import Search from "./pages/Search.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
