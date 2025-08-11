@@ -1,4 +1,4 @@
-export interface IMovie {
+export interface ISimpleMovie {
   id: number;
   title: string;
   adult: boolean;

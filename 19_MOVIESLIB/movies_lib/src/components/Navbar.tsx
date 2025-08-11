@@ -4,17 +4,24 @@ import "./Navbar.css";
 // Hooks
 import { useState } from "react";
 
+// React Router
+import { Link, useNavigate } from "react-router-dom";
+
 // Components
-import { Link } from "react-router-dom";
 import { BiCameraMovie, BiSearchAlt2 } from "react-icons/bi";
 
 const Navbar = () => {
   const [search, setSearch] = useState<string>("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(search);
+    if (!search) return;
+
+    navigate(`/search?q=${search}`);
+    setSearch("");
   };
 
   return (

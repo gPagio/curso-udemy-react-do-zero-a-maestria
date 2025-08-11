@@ -1,0 +1,15 @@
+meta {
+  name: Get Movie By Id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}475557?{{apiKey}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  {{apiKey}}: 
+}

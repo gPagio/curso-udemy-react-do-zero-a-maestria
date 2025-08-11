@@ -5,7 +5,7 @@ import "./MoviesGrid.css"
 import { useState, useEffect } from "react";
 
 // Types
-import type { IMovie } from "../types/IMovie";
+import type { IMovie } from "../types/ISimpleMovie";
 
 // Services
 import movieService from "../services/movieService";

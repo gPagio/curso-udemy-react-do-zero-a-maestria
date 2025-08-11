@@ -1,14 +1,14 @@
 const IMAGE_URL = import.meta.env.VITE_IMG;
 
 // Types
-import type { IMovie } from "../types/IMovie";
+import type { ISimpleMovie } from "../types/ISimpleMovie";
 
 // Components
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 
 type Props = {
-  movie: IMovie;
+  movie: ISimpleMovie;
   showLink?: boolean;
 };
 
@@ -18,7 +18,7 @@ const MovieCard = ({ movie, showLink = true }: Props) => {
       <img src={`${IMAGE_URL + movie.posterPath}`} alt={movie.title} />
       <h2>{movie.title}</h2>
       <p>
-        <FaStar />
+        <FaStar /> {movie.voteAverage.toPrecision(2)}
       </p>
       {showLink && <Link to={`/movie/${movie.id}`}>Detalhes</Link>}
     </div>
