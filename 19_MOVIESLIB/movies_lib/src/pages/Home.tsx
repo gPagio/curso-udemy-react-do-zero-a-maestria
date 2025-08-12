@@ -5,14 +5,14 @@ import "./MoviesGrid.css"
 import { useState, useEffect } from "react";
 
 // Types
-import type { IMovie } from "../types/ISimpleMovie";
+import type { ISimpleMovie } from "../types/ISimpleMovie";
 
 // Services
 import movieService from "../services/movieService";
 import MovieCard from "../components/MovieCard";
 
 const Home = () => {
-  const [topMovies, setTopMovies] = useState<IMovie[]>([]);
+  const [topMovies, setTopMovies] = useState<ISimpleMovie[]>([]);
 
   useEffect(() => {
     movieService.getTopRatedMovies().then(setTopMovies);
